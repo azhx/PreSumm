@@ -36,17 +36,16 @@ def nallapati_method(article_sents:list, abstract_sents:list):
     rougescore_sentwise.sort(reverse=True)
     
     toprougesentences = [item[1][0] for item in rougescore_sentwise]
-    print(toprougesentences)
     
     selected_summary = []
     candidate_summary = []
     prev_score = -1
     cur_score = 0 #placeholder
-    topn = 1
+    topn = 0
     while prev_score < cur_score:
         prev_score = cur_score
         selected_summary = candidate_summary
-        candidate_summary = selected_summary + [toprougesentences[topn-1]]
+        candidate_summary = selected_summary + [toprougesentences[topn]]
         cur_score, candidate_summary = cal_rouge(candidate_summary, article_sents, abstract_sents)
         topn += 1
     return (cur_score, selected_summary)
